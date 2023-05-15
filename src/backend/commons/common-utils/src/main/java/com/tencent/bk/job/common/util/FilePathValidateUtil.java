@@ -40,7 +40,6 @@ public class FilePathValidateUtil {
 
         // 路径中有合法的内置变量或全局变量通过校验
         if (validateVariable(path)) {
-            log.warn("The path {} contains legal variables", path);
             return true;
         }
 
@@ -52,7 +51,7 @@ public class FilePathValidateUtil {
         }
         if (!result) {
             // 路径不合法
-            log.error("The path {} is invalid and the verification fails", path);
+            log.warn("The path {} is invalid and the verification fails", path);
         }
         return result;
     }
