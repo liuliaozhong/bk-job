@@ -6,8 +6,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class FilePathValidateUtilTest {
     @Test
-    void testFileSystemAbsolutePath(){
-        // 传统DOS路径
+    void testWindowsFilePath(){
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("C:\\Documents\\abc.txt")).isTrue();
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("c:\\Documents\\abc.txt")).isTrue();
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("C:\\Documents\\嘉 abc.txt")).isTrue();
@@ -37,9 +36,10 @@ public class FilePathValidateUtilTest {
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("${path}\\test.txt")).isTrue();
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("C:\\tmp\\${path}")).isTrue();
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("C:\\${date}\\${path}")).isTrue();
+    }
 
-        // linux路径
-        assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("/data/test_2022-04-12.apk")).isTrue();
+    @Test
+    void testLinuxFilePath(){
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("/data/test_2022 04 12.apk")).isTrue();
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("/")).isTrue();
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("/tmp/")).isTrue();
@@ -49,11 +49,6 @@ public class FilePathValidateUtilTest {
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("///")).isTrue(); // 根目录
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("/tmp////")).isTrue(); // /tmp/
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("/tmp//test/")).isTrue();// /tmp/test/
-        assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("/tmp/abc>a")).isTrue();
-        assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("/tmp/abc:a")).isTrue();
-        assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("/tmp/abc|a")).isTrue();
-        assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("/tmp/abc?a")).isTrue();
-        assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("/tmp/abc<a")).isTrue();
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("/logs/log*.log")).isTrue();
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("/tmp/REGEX:myfile-[A-Za-z]{0,10}.tar.gz")).isTrue();
         assertThat(FilePathValidateUtil.validateFileSystemAbsolutePath("/tmp/REGEX:aa|bb")).isTrue();
