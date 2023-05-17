@@ -52,6 +52,8 @@ public class FilePathValidateUtil {
         if (!result) {
             // 路径不合法
             log.warn("The path {} is invalid and the verification fails", path);
+            // 路径校验失败输出日志，验证阶段不拦截返回true
+            result = true;
         }
         return result;
     }
@@ -71,10 +73,11 @@ public class FilePathValidateUtil {
 
     /**
      * 1 传统DOS路径
-     *    标准的DOS路径可由以下三部分组成：
-     *    1)卷号或驱动器号，后跟卷分隔符(:)。
-     *    2)目录名称。目录分隔符用来分隔嵌套目录层次结构中的子目录。
-     *    3)文件名。目录分隔符用来分隔文件路径和文件名。
+     * 标准的DOS路径可由以下三部分组成：
+     * 1)卷号或驱动器号，后跟卷分隔符(:)。
+     * 2)目录名称。目录分隔符用来分隔嵌套目录层次结构中的子目录。
+     * 3)文件名。目录分隔符用来分隔文件路径和文件名。
+     *
      * @param path
      * @return boolean
      */
